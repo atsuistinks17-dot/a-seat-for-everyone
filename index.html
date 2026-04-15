@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Seat For Everyone</title>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Bangers&family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Smooth Scrolling */
+        html { scroll-behavior: smooth; }
+
+        body {
+            margin: 0;
+            background-color: #331f00; 
+            font-family: 'Roboto Condensed', sans-serif;
+            display: flex;
+            justify-content: center;
+            position: relative;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Sunset Overlay and Light Scenery */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: linear-gradient(
+                180deg,
+                rgba(255, 126, 0, 0.03) 0%,   
+                rgba(255, 60, 0, 0.05) 50%,   
+                rgba(51, 31, 0, 0.9) 100%    
+            );
+            z-index: -2;
+        }
+
+        /* Floating Sun Symbols */
+        body::after {
+            content: '☀️ ☀️ ☀️ ☀️ ☀️ ☀️';
+            position: fixed;
+            top: -100px;
+            left: 0;
+            width: 100%;
+            font-size: 10rem;
+            color: rgba(255, 186, 8, 0.1); 
+            white-space: nowrap;
+            z-index: -1;
+            animation: floatSuns 25s linear infinite;
+        }
+
+        @keyframes floatSuns {
+            0% { transform: translateY(0) translateX(0); }
+            50% { transform: translateY(110vh) translateX(20vw); }
+            100% { transform: translateY(-100px) translateX(-20vw); }
+        }
+
+        .container { max-width: 500px; width: 100%; padding: 40px 20px; text-align: center; position: relative; z-index: 1; }
+
+        .main-header {
+            background-color: #ffba08;
+            padding: 20px;
+            transform: rotate(-3deg);
+            border: 3px solid #1a1a1a;
+            box-shadow: 8px 8px 0px #d65a00;
+            margin-bottom: 20px;
+        }
+        .main-header h1 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 3.5rem;
+            color: #1a1a1a;
+            margin: 0;
+            line-height: 1;
+            text-transform: uppercase;
+        }
+        .main-header h1 span { color: #d65a00; }
+
+        /* Navigation Site Map */
+        .site-map {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 40px;
+            padding: 10px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 8px;
+        }
+        .nav-btn.full { grid-column: span 2; }
+
+        .nav-btn {
+            background: #ffba08;
+            border: 2px solid #1a1a1a;
+            padding: 12px 5px;
+            font-family: 'Oswald', sans-serif;
+            text-decoration: none;
+            color: #1a1a1a;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            box-shadow: 4px 4px 0px #d65a00;
+            transition: 0.2s;
+        }
+        .nav-btn:active {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0px #d65a00;
+        }
+
+        /* Section Wrappers */
+        .content-group {
+            margin-bottom: 60px;
+            padding-top: 20px;
+        }
+        .section-tag {
+            display: inline-block;
+            background: #1a1a1a;
+            color: #ffba08;
+            padding: 5px 15px;
+            font-family: 'Bangers', cursive;
+            font-size: 1.2rem;
+            transform: skewX(-10deg);
+            margin-bottom: -15px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Card Designs */
+        .card-original {
+            background: rgba(255, 255, 255, 0.9);
+            color: #1a1a1a;
+            padding: 30px;
+            margin: 20px 0;
+            text-align: left;
+            border-left: 15px solid #d65a00;
+            box-shadow: 10px 10px 20px rgba(0,0,0,0.5);
+        }
+        .card-original h2, .card-info h2 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 2.2rem;
+            text-transform: uppercase;
+            line-height: 1.1;
+            margin: 0;
+        }
+
+        .card-info {
+            background: #ffffff;
+            color: #1a1a1a;
+            padding: 30px;
+            margin: 20px 0;
+            text-align: left;
+            border: 2px solid #d65a00;
+            outline: 6px solid #ffffff;
+            outline-offset: -12px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+        }
+
+        .action-item { margin-bottom: 20px; }
+        .action-item strong {
+            display: block;
+            color: #d65a00;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .myth-box { border-bottom: 1px dashed #ccc; padding-bottom: 15px; margin-bottom: 15px; }
+        .myth-tag { color: #1a1a1a; font-weight: bold; text-transform: uppercase; }
+        .fact-tag { color: #d65a00; font-weight: bold; text-transform: uppercase; }
+
+        .dashed-line {
+            width: 100px;
+            height: 4px;
+            background: repeating-linear-gradient(to right, #1a1a1a, #1a1a1a 8px, transparent 8px, transparent 16px);
+            margin: 15px 0;
+        }
+        
+        .fb-link { 
+            display: block; 
+            background-color: #d65a00;
+            color: white !important; 
+            padding: 25px 20px; 
+            border: 4px solid white; 
+            transform: rotate(-2deg); 
+            box-shadow: 10px 10px 0px #000; 
+            margin: 40px 0; 
+            text-decoration: none;
+        }
+        .fb-link h3 { font-family: 'Bangers', cursive; font-size: 2.2rem; margin: 0; }
+
+        /* UPDATED CONNECT BOX COLOR - Deep Orange and White Text */
+        .contact-box {
+            background: #b64c00; /* Deep Sunset Orange */
+            color: #ffffff; /* White Text */
+            padding: 25px;
+            border: 4px solid #ffffff;
+            margin: 20px 0;
+            text-align: center;
+            box-shadow: 10px 10px 0px #1a1a1a;
+        }
+        .contact-box strong {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.5rem;
+            display: block;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+        /* UPDATED NUMBER BOX COLOR - White Background, Dark Orange Text */
+        .contact-box span {
+            font-size: 1.8rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+            background: #ffffff; /* White Background */
+            color: #d65a00; /* Dark Orange Text */
+            padding: 2px 10px;
+            display: inline-block;
+            border: 2px solid #d65a00; /* Subtle orange border */
+        }
+        
+        .footer-yellow {
+            background-color: #ffba08;
+            color: #1a1a1a;
+            padding: 15px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header class="main-header">
+            <h1>A SEAT FOR<br><span>EVERYONE</span></h1>
+        </header>
+
+        <nav class="site-map">
+            <a href="#foundation" class="nav-btn">1. The Foundation</a>
+            <a href="#goals" class="nav-btn">2. Goals & Targets</a>
+            <a href="#legal" class="nav-btn">3. Legal & Myths</a>
+            <a href="#action" class="nav-btn">4. Take Action</a>
+            <a href="#connect" class="nav-btn full">5. Connect With Our Team</a>
+        </nav>
+
+        <div id="foundation" class="content-group">
+            <span class="section-tag">THE FOUNDATION</span>
+            <section class="card-info" style="border-left: 15px solid #1a1a1a;">
+                <h2>WHAT IS IT?</h2>
+                <div class="dashed-line"></div>
+                <p>Gender equality is the state where gender and individuals attains and being included the same human rights, opportunities, and treatment. It's a fundamental human right essential to achieve peace, full human potential, and sustainable development.</p>
+            </section>
+            <section class="card-original">
+                <h2>MISSION</h2>
+                <p style="color: #d65a00;">Promoting gender equality and empowerment for women and gender-diverse people across the globe.</p>
+            </section>
+            <section class="card-original">
+                <h2>VISION</h2>
+                <p style="color: #d65a00;">A society where all people are treated equally and are free from discrimination.</p>
+            </section>
+            <section class="card-info">
+                <h2>HISTORY</h2>
+                <div class="dashed-line"></div>
+                <p>Gender Equality became part of international law via the <strong>Universal Declaration of Human Rights</strong> (Dec 10, 1948).</p>
+            </section>
+        </div>
+
+        <div id="goals" class="content-group">
+            <span class="section-tag">GOALS & TARGETS</span>
+            <section class="card-info" style="background-color: #ffffff; border: 4px solid #d65a00;">
+                <h2 style="color: #d65a00;">MAIN TARGETS</h2>
+                <div class="dashed-line"></div>
+                <div class="action-item"><strong>(1) Ending Disparities</strong></div>
+                <div class="action-item"><strong>(2) Eliminating Violence</strong></div>
+                <div class="action-item"><strong>(3) Stopping Forced Marriage</strong></div>
+                <div class="action-item"><strong>(4) Equal Participation</strong></div>
+                <div class="action-item"><strong>(5) Reproductive Rights</strong></div>
+            </section>
+            <section class="card-info" style="border-color: #1a1a1a; background-color: #fff9f0;">
+                <h2 style="color: #d65a00;">OUR CORE GOALS</h2>
+                <div class="dashed-line"></div>
+                <div class="action-item"><strong>• PROMOTE RESPECT</strong><p>Valuing all gender identities with dignity.</p></div>
+                <div class="action-item"><strong>• FAIR TREATMENT</strong><p>Ensuring equal access in classrooms and workplaces.</p></div>
+                <div class="action-item"><strong>• STOP THE BIAS</strong><p>Actively fighting discrimination and unfair judgment.</p></div>
+            </section>
+        </div>
+
+        <div id="legal" class="content-group">
+            <span class="section-tag">LEGAL & MYTHS</span>
+            <section class="card-info" style="border-color: #1a1a1a;">
+                <h2>LEGAL PROTECTIONS</h2>
+                <div class="dashed-line"></div>
+                <div class="action-item"><strong>SAFE SPACES ACT (RA 11313)</strong><p>Protects against harassment in public and online.</p></div>
+                <div class="action-item"><strong>MAGNA CARTA (RA 9710)</strong><p>Ensures non-discrimination and health rights.</p></div>
+                <div class="action-item"><strong>ANTI-SEXUAL HARASSMENT (RA 7877)</strong><p>Penalizes harassment in work and education.</p></div>
+            </section>
+            <section class="card-info">
+                <h2>MYTH VS. FACT</h2>
+                <div class="dashed-line"></div>
+                <div class="myth-box">
+                    <p><span class="myth-tag">Myth:</span> Equality is only for women.</p>
+                    <p><span class="fact-tag">Fact:</span> It helps men break toxic masculinity and share roles freely.</p>
+                </div>
+                <div class="myth-box">
+                    <p><span class="myth-tag">Myth:</span> Women get more rights.</p>
+                    <p><span class="fact-tag">Fact:</span> It means equal rights for all, not more for one group.</p>
+                </div>
+                <div class="myth-box" style="border-bottom: none;">
+                    <p><span class="myth-tag">Myth:</span> Men must be providers.</p>
+                    <p><span class="fact-tag">Fact:</span> Both can work and share family responsibilities.</p>
+                </div>
+            </section>
+        </div>
+
+        <div id="action" class="content-group">
+            <span class="section-tag">TAKE ACTION</span>
+            <section class="card-info">
+                <h2>WHAT CAN YOU DO?</h2>
+                <div class="dashed-line"></div>
+                <div class="action-item"><strong>1. CALL OUT STEREOTYPES</strong><p>Reply calmly: "Anyone can do anything regardless of gender."</p></div>
+                <div class="action-item"><strong>2. SHARE CHORES EQUALLY</strong><p>Equality starts at home. Anyone can cook, clean, or take out trash.</p></div>
+                <div class="action-item"><strong>3. READ DIVERSE STORIES</strong><p>Choose books where everyone can be leaders or show emotion.</p></div>
+            </section>
+        </div>
+
+        <div id="connect" class="content-group">
+            <span class="section-tag">CONNECT WITH OUR TEAM</span>
+            <div class="contact-box">
+                <strong>REACH OUR TEAM AT:</strong>
+                <span>09915755292</span>
+            </div>
+
+            <a href="https://www.facebook.com/share/1AuVUrs9rj/" target="_blank" rel="noopener noreferrer" class="fb-link">
+                <h3>PARA PO!! VISIT OUR<br>FACEBOOK PAGE! &rarr;</h3>
+            </a>
+        </div>
+
+        <footer>
+            <div class="footer-yellow">Pantay na Karapatan, hindi kasarian ang basehan</div>
+        </footer>
+    </div>
+
+</body>
+</html>
